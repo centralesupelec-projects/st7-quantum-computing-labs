@@ -1,5 +1,5 @@
-from qiskit import *
-from utils import runStateVector
+from qiskit import ClassicalRegister, QuantumRegister, QuantumCircuit
+from utils import runStateVector, runSample
 
 def exampleDraw():
     q = QuantumRegister(2, name="x")    # Allocating 2 qubits
@@ -13,11 +13,8 @@ def exampleDraw():
     qc.x(q[0])        # Applying X on qubit 0:
     qc.z(q[0])        # Applying z on qubit 0:
     qc.cx(q[0],q[1])  # Applying CNOT on qubits 0 and 1:
-    qc.measure(q, c)  # Mesure of all of register q, storing results in c.
-                      # This is still part of the circuit !
-    print(qc)         # print the circuit in ASCII form
-
-exampleDraw()
+    qc.measure(q, c)  # Mesure of all of register q, storing results in c (part of the circuit)
+    return qc
 
 def exampleStateVector():
     q1 = QuantumRegister(3, name="q1")
@@ -28,11 +25,7 @@ def exampleStateVector():
     qc.x(q1[1])
     qc.h(q2[0])
     qc.cx(q2[0],q1[2])
-
-    print(qc)
-    runStateVector(qc)
-
-exampleStateVector()
+    return qc
 
 def exampleSample():
     q = QuantumRegister(3, name="q1")
@@ -42,11 +35,29 @@ def exampleSample():
     qc.x(q[0])
     qc.h(q[1])
     qc.cx(q[1],q[2])
-
-
     qc.measure(q,c)
+    return qc
 
-    print(qc)
-    return runSample(qc,1000)
+## Draw and run circuits
 
-print(exampleSample())
+# print the circuit in ASCII form
+print("--- Circuit 1 - Draw ---\n")
+qc1 = exampleDraw()
+print(qc1)
+
+# Compute the output state vector
+print("\n--- Circuit 2 - Compute state vector ---\n")
+qc2 = exampleStateVector()
+print(qc2)
+print("\nThe state vector is: \n")
+runStateVector(qc2)
+
+# Run the circuit with a simulator
+# Need measure to get a result, else it will raise a QiskitError
+NB_SHOTS = 1000 # Number of executions of the circuit
+print("\n--- Circuit 3 - Simulation of measures ---\n")
+qc3 = exampleSample()
+print(qc3)
+print("\nThe result of measures is (number of measures): \n")
+# We get a dictionnary with the amount of measures for each state (sample)
+runSample(qc3,NB_SHOTS)

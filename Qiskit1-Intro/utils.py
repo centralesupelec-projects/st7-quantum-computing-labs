@@ -4,7 +4,7 @@ from qiskit import *
 from qiskit_aer import AerSimulator, StatevectorSimulator
 import numpy as np
 
-def processOneState(st): # Longueur = puissance de 2
+def processOneState(st): # Length = power of 2
         s = list(st)
         if len(s) == 2:
             return {'0' : s[0], '1' : s[1]}
@@ -35,9 +35,11 @@ def runStateVector(qc):
     job_result = job.result()
     result = job_result.results[0].to_dict()['data']['statevector']
     printFinalRes(result)
+    return result
 
 def runSample(qc,howmany):
     simulator = AerSimulator()
     job = simulator.run(qc.decompose(reps=6), shots=howmany)
     res = dict(job.result().get_counts(qc))
+    print(res)
     return res

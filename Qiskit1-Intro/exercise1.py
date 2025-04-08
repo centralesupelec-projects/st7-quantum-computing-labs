@@ -1,5 +1,5 @@
-from qiskit import *
-from utils import runStateVector
+from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
+from utils import runStateVector, runSample
 
 ## Exercise 1 ##
 
@@ -9,19 +9,27 @@ from utils import runStateVector
 # 4 - Output a sample (therefore: the result of a series of measures):
 # can you see the -1 coefficient in front of the |111..1> ? Can you say why?
 
-def exercise1(n):
+def exercise1(n, measure=False):
     q = QuantumRegister(n, name="q1")
-    c = ClassicalRegister(3)
+    c = ClassicalRegister(n)
     qc = QuantumCircuit(q, c)
     
     qc.x(q[0])
     qc.h(q[0])
     for i in range(1, n):
         qc.cx(q[0], q[i])
-    print(qc)
-    runStateVector(qc)
+    if measure:
+        qc.measure(q,c)
+    return qc
 
-    # qc.measure(q,c)
-    # return runSample(qc,1000)
+# Compute statevector
+circuit = exercise1(5)
+print("Circuit:")
+print(circuit)
+print("Output statevector:")
+runStateVector(circuit)
 
-exercise1(5)
+# Add measure and output sample
+print("\nOutput sample:")
+circuit = exercise1(5, measure=True)
+runSample(circuit,1000)
