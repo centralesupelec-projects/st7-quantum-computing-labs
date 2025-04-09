@@ -38,7 +38,7 @@ def hadamard_tower(qc, q):
 
 def grover(n_iter):
     q = QuantumRegister(N)
-    c = ClassicalRegister(N) 
+    c = ClassicalRegister(N)
     aux = QuantumRegister(1)  # store additional wire used for O
     qc = QuantumCircuit(q,aux,c)
 
