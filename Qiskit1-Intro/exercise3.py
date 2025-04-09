@@ -1,7 +1,7 @@
 from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
 from utils import runStateVector
 
-## Exercice 3 
+## Exercice 3 ##
 
 # 1 - Implement a C-C-C-X
 # 2 - Idem using only 2-qubit gates

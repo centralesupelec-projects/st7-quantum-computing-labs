@@ -1,6 +1,4 @@
 import numpy as np
-from math import pi, gcd
-from qiskit import *
 from qiskit_aer import AerSimulator, StatevectorSimulator
 
 def processOneState(st): # Longueur = puissance de 2
