@@ -11,6 +11,8 @@ from scipy.optimize import minimize
 # Step 3 - Use the approximate solution with classical post-processing
 # to solve the eigenvalue or optimization problem
 
+# Step 2 and 3
+
 def param_circuit():
     qc = QuantumCircuit(5)
     pv1 = np.random.random(5)
@@ -43,7 +45,7 @@ def optimize(cost_function):
     print("optimized angle :", res.x)
     return res
 
-def optimized_circuit(qc):
+def optimized_circuit(qc, res):
     qc_optimized = qc.assign_parameters({"theta["+str(i)+"]":res.x[i] for i in range(5)})
     counts = runSample(qc_optimized, 4000)
     return counts
@@ -53,11 +55,11 @@ qc, pv1, pv2 = param_circuit()
 print("--- Single parameter circuit ---")
 print(qc)
 
-# Optimization iteration
+# Optimization iteration - step 2
 print("--- Running optimization ---")
 res = optimize(cost_function)
 
-# Optimization iteration
+# Optimization iteration - step 3
 print("\n--- Optimized circuit result ---")
-counts = optimized_circuit(qc)
+counts = optimized_circuit(qc, res)
 print(counts)

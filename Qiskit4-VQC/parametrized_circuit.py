@@ -9,7 +9,7 @@ import numpy as np
 # Step 3 - Use the approximate solution with classical post-processing
 # to solve the eigenvalue or optimization problem
 
-## Single Parameter
+# Step 1 - Single Parameter
 
 from qiskit.circuit import Parameter
 
@@ -31,7 +31,7 @@ qc_assigned = qc.assign_parameters({phi: np.pi})
 print("\n--- Single parameter circuit assigned ---")
 print(qc_assigned)
 
-## Multiple Parameter
+# Step 1 - Multiple Parameter
 
 def circuit2():
     qc = QuantumCircuit(5)
