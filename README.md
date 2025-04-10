@@ -15,4 +15,20 @@ Here is an overview of the different labs:
 
 ## Quick start
 
+First, setup the env with:
+
+````
+make setup
+make install
+````
+
+Then you can run each lab with:
+```
+make run_lab_1
+make run_lab_2
+make run_lab_3
+make run_lab_4
+make run_lab_5
+```
+
 
