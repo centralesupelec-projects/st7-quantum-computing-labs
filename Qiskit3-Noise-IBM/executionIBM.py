@@ -6,10 +6,12 @@ from circuit import circuit
 from time import sleep
 import matplotlib.pyplot as plt
 
+IBM_KEY = '<token>'
+
 service = QiskitRuntimeService(
     channel='ibm_quantum',
     instance='ibm-q/open/main',
-    token='<token>'
+    token=IBM_KEY
     )
 
 backend = service.least_busy(operational=True, simulator=False)
